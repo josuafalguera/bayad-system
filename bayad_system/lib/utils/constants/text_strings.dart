@@ -12,17 +12,20 @@ class Texts{
   static const String signIn = 'Sign In';
   static const String createAccount = 'Create Account';
   static const String orSignInWith = 'or Sign in with';
-  static const String orSignUpWith = 'or Sign Up With';
+  static const String orSignUpWith = 'or Sign up with';
   static const String iAgreeTo = 'I agree to';
   static const String privacyPolicy = 'Privacy Policy';
+  static const String termsOfUse = 'Terms of use';
   static const String verificationCode = 'Verification Code';
   static const String resendEmail = 'Resend Email';
   static const String resendEmailIn = 'Resend Email in';
+  static const String and = 'and';
 
   // Authentication heading texts
-  static const String loginTitle = 'Welcome Back, Transaqtor!';
-  static const String loginSubtitle = 'Your gateway to revitalized finances.';
-  static const String signUpTitle = 'Create an Account';
+  static const String loginTitle = 'Welcome Back';
+  static const String loginTitleSpan = 'Transaqtor';
+  static const String loginSubtitle = 'Your gateway to revitalized finances. Sign in to continue.';
+  static const String signUpTitle = "Let's create your account";
   static const String forgetPasswordTitle = 'Forgot Password?';
   static const String forgetPasswordSubtitle = "Don't worry, sometime people can forget too, enter your email and we will send you a password reset link.";
   static const String changeYourPasswordTitle = 'Password Reset Email Sent';
