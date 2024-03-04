@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bayad_system/utils/theme/theme.dart';
-import 'package:bayad_system/features/authentication/screens/login.dart';
+import 'package:bayad_system/features/authentication/screens/signup/signup.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -11,7 +11,7 @@ class App extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: AppTheme.lightTheme, 
       darkTheme: AppTheme.lightTheme,
-      home: const LoginScreen(),
+      home: const SignupScreen(),
     );
   }
 }
