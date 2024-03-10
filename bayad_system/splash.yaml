@@ -1,0 +1,15 @@
+#? this is the set up for the splash screen
+
+flutter_native_splash:
+  color: "#FFFFFF"
+  color_dark: "#272727"
+  image: assets\logos\circle-logo-light-small.png
+  image_dark: assets\logos\circle-logo-dark-small.png
+
+  android_12:
+    color: "#FFFFFF"
+    color_dark: "#272727"
+    image: assets\logos\circle-logo-light-small.png
+    image_dark: assets\logos\circle-logo-dark-small.png
+
+  web: false
