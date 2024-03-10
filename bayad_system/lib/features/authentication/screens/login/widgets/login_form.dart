@@ -26,7 +26,7 @@ class LoginForm extends StatelessWidget {
             //* Password
             TextFormField(
               decoration: const InputDecoration(
-                prefixIcon: Icon(Iconsax.password_check), 
+                prefixIcon: Icon(Iconsax.password_check),
                 labelText: Texts.password, 
                 suffixIcon: Icon(Iconsax.eye_slash),
               )

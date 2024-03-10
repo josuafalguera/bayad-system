@@ -34,4 +34,13 @@ class Texts{
   static const String confirmEmailSubtitle = 'Congratulations! Your account awaits: Verify your email address to start shopping and experience the full benefits of Transaqtor.'; 
   static const String yourAccountCreatedTitle = 'You are now a Transaqtor!';
   static const String yourAccountCreatedSubtitle = 'Welcome to the Transaqtor family! Your account has been successfully created.';
+
+  // Onboarding texts
+  static const String onBoardingTitle1 = "Digital Ledgers";
+  static const String onBoardingTitle2 = "Offline POS";
+  static const String onBoardingTitle3 = "Tailored Solutions";
+
+  static const String onBoardingSubtitle1 = "Be able to track purchases, expenses, and cash ledgers as well as keep track of your debts through credit ledgers.";
+  static const String onBoardingSubtitle2 = "No internet? No problem! Our offline POS system allows you to continue your business transactions even without internet.";
+  static const String onBoardingSubtitle3 = "This is tailored for you! Micro and Small Enterprises Owners, to manage your enterprise with ease.";
 }

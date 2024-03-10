@@ -47,11 +47,11 @@ class CustomDeviceUtils {
     return MediaQuery.of(Get.context!).padding.top;
   }
 
-  static double getBottomNavigationHeight(BuildContext context){
+  static double getBottomNavigationHeight(){
     return kBottomNavigationBarHeight;
   }
 
-  static double getAppBarHeight(BuildContext context){
+  static double getAppBarHeight(){
     return kToolbarHeight;
   }
 
