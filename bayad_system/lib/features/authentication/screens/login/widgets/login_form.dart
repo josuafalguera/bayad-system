@@ -1,6 +1,8 @@
+import 'package:bayad_system/navigation_menu.dart';
 import 'package:bayad_system/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:bayad_system/utils/constants/text_strings.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 class LoginForm extends StatelessWidget {
@@ -52,7 +54,7 @@ class LoginForm extends StatelessWidget {
             const SizedBox(height: CustomSizes.spaceBetweenSections),
       
             //* Sign in button
-            SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () {}, child: const Text(Texts.signIn))),
+            SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () => Get.to(() => const NavigationMenu()), child: const Text(Texts.signIn))),
             const SizedBox(height: CustomSizes.spaceBetweenItems),
       
             //* Create account button
