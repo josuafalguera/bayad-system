@@ -30,10 +30,11 @@ class Texts{
   static const String forgetPasswordSubtitle = "Don't worry, sometime people can forget too, enter your email and we will send you a password reset link.";
   static const String changeYourPasswordTitle = 'Password Reset Email Sent';
   static const String changeYourPasswordSubtitle = 'Your account security is our number one priority! We have sent you a secure link to safely change your password and keep your account protected.';
-  static const String confirmEmail = 'Verify your email address';
+  static const String confirmEmail = 'Verify your email address!';
   static const String confirmEmailSubtitle = 'Congratulations! Your account awaits: Verify your email address to start shopping and experience the full benefits of Transaqtor.'; 
   static const String yourAccountCreatedTitle = 'You are now a Transaqtor!';
   static const String yourAccountCreatedSubtitle = 'Welcome to the Transaqtor family! Your account has been successfully created.';
+  static const String econtinue = 'Continue';
 
   // Onboarding texts
   static const String onBoardingTitle1 = "Digital Ledgers";

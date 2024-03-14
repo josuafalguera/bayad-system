@@ -1,7 +1,9 @@
+import 'package:bayad_system/features/authentication/screens/signup/verify_email.dart';
 import 'package:bayad_system/features/authentication/screens/signup/widgets/terms_conditions_checkbox.dart';
 import 'package:flutter/material.dart';
 import 'package:bayad_system/utils/constants/sizes.dart';
 import 'package:bayad_system/utils/constants/text_strings.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 class SignupForm extends StatelessWidget {
@@ -75,7 +77,7 @@ class SignupForm extends StatelessWidget {
           const SizedBox(height: CustomSizes.spaceBetweenSections),
     
           //* Sign up button
-          SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () {}, child: const Text(Texts.createAccount))),
+          SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () => Get.to(() => const VerifyEmailScreen()), child: const Text(Texts.createAccount))),
         ],
       ),
     );
