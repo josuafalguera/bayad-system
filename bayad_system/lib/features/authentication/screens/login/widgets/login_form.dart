@@ -5,6 +5,8 @@ import 'package:bayad_system/utils/constants/text_strings.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../signup/signup.dart';
+
 class LoginForm extends StatelessWidget {
   const LoginForm({
     super.key,
@@ -58,7 +60,7 @@ class LoginForm extends StatelessWidget {
             const SizedBox(height: CustomSizes.spaceBetweenItems),
       
             //* Create account button
-            SizedBox(width: double.infinity, child: OutlinedButton(onPressed: () {}, child: const Text(Texts.createAccount))),
+            SizedBox(width: double.infinity, child: OutlinedButton(onPressed: () => Get.to(() => const SignupScreen()), child: const Text(Texts.createAccount))),
             const SizedBox(height: CustomSizes.spaceBetweenItems),
           ],
         ),
