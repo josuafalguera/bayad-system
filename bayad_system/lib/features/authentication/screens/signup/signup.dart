@@ -2,12 +2,10 @@ import 'package:bayad_system/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:bayad_system/utils/constants/sizes.dart';
 import 'package:bayad_system/utils/constants/text_strings.dart';
-import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import '../../../../utils/helpers/helper_functions.dart';
 import '../../../../common/widgets/login_signup/form_divider.dart';
 import '../../../../common/widgets/login_signup/social_buttons.dart';
-import '../login/login.dart';
 
 class SignupScreen extends StatelessWidget {
   const SignupScreen({super.key});
@@ -116,10 +114,6 @@ class SignupScreen extends StatelessWidget {
                 ),
               ),
 
-              //* Back to Login Form
-              const SizedBox(height: CustomSizes.spaceBetweenItems),
-              SizedBox(width: double.infinity, child: OutlinedButton(onPressed: () => Get.to(() => const LoginScreen()), child: const Text(Texts.signIn))),
-              
               const SizedBox(height: CustomSizes.spaceBetweenSections),
 
               //* Divider
