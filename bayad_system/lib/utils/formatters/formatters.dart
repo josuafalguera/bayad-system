@@ -15,7 +15,8 @@ class CustomFormatters {
   }
 
   static String formatMobileNumber(String mobileNumber) {
-    return mobileNumber.replaceFirstMapped(RegExp(r'^(\d{4})(\d{3})(\d{4})$'), (match) {
+    return mobileNumber.replaceFirstMapped(RegExp(r'^(\d{4})(\d{3})(\d{4})$'),
+        (match) {
       return '${match.group(1)}-${match.group(2)}-${match.group(3)}';
     });
   }

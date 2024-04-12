@@ -22,62 +22,68 @@ class SignupForm extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: TextFormField(
-                  expands: false,
-                  decoration: const InputDecoration(labelText: Texts.firstName, prefixIcon: Icon(Iconsax.user)),
-                )
-              ),
+                  child: TextFormField(
+                expands: false,
+                decoration: const InputDecoration(
+                    labelText: Texts.firstName, prefixIcon: Icon(Iconsax.user)),
+              )),
               const SizedBox(width: CustomSizes.spaceBetweenInputFields),
               Expanded(
-                child: TextFormField(
-                  expands: false,
-                  decoration: const InputDecoration(labelText: Texts.lastName, prefixIcon: Icon(Iconsax.user)),
-                )
-              ),
+                  child: TextFormField(
+                expands: false,
+                decoration: const InputDecoration(
+                    labelText: Texts.lastName, prefixIcon: Icon(Iconsax.user)),
+              )),
             ],
           ),
-    
+
           const SizedBox(height: CustomSizes.spaceBetweenInputFields),
-          
+
           //* Username
           TextFormField(
-            decoration: const InputDecoration(labelText: Texts.username, prefixIcon: Icon(Iconsax.user_edit)),
+            decoration: const InputDecoration(
+                labelText: Texts.username, prefixIcon: Icon(Iconsax.user_edit)),
           ),
-    
+
           const SizedBox(height: CustomSizes.spaceBetweenInputFields),
-    
+
           //* Email
           TextFormField(
-            decoration: const InputDecoration(labelText: Texts.email, prefixIcon: Icon(Iconsax.direct)),
+            decoration: const InputDecoration(
+                labelText: Texts.email, prefixIcon: Icon(Iconsax.direct)),
           ),
-    
+
           const SizedBox(height: CustomSizes.spaceBetweenInputFields),
-    
+
           //* Phone number
           TextFormField(
-            decoration: const InputDecoration(labelText: Texts.phoneNo, prefixIcon: Icon(Iconsax.call)),
+            decoration: const InputDecoration(
+                labelText: Texts.phoneNo, prefixIcon: Icon(Iconsax.call)),
           ),
-    
+
           const SizedBox(height: CustomSizes.spaceBetweenInputFields),
-    
+
           //* Password
           TextFormField(
             decoration: const InputDecoration(
-              labelText: Texts.password, 
-              prefixIcon: Icon(Iconsax.password_check), 
-              suffixIcon: Icon(Iconsax.eye_slash)
-            ),
+                labelText: Texts.password,
+                prefixIcon: Icon(Iconsax.password_check),
+                suffixIcon: Icon(Iconsax.eye_slash)),
           ),
-    
+
           const SizedBox(height: CustomSizes.spaceBetweenSections),
-    
+
           //* Terms and conditions checkbox
           TermsAndConditionCheckbox(dark: dark),
-    
+
           const SizedBox(height: CustomSizes.spaceBetweenSections),
-    
+
           //* Sign up button
-          SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () => Get.to(() => const VerifyEmailScreen()), child: const Text(Texts.createAccount))),
+          SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                  onPressed: () => Get.to(() => const VerifyEmailScreen()),
+                  child: const Text(Texts.createAccount))),
         ],
       ),
     );

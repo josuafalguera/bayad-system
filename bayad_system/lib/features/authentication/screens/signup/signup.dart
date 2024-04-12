@@ -13,33 +13,33 @@ class SignupScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = HelperFunctions.isDarkMode(context);
     return Scaffold(
-      appBar: AppBar(),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(CustomSizes.defaultSpace),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              //* Title
-              Text(Texts.signUpTitle, style: Theme.of(context).textTheme.headlineMedium),
-              const SizedBox(height: CustomSizes.spaceBetweenSections),
+        appBar: AppBar(),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(CustomSizes.defaultSpace),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                //* Title
+                Text(Texts.signUpTitle,
+                    style: Theme.of(context).textTheme.headlineMedium),
+                const SizedBox(height: CustomSizes.spaceBetweenSections),
 
-              //* Form
-              SignupForm(dark: dark),
+                //* Form
+                SignupForm(dark: dark),
 
-              const SizedBox(height: CustomSizes.spaceBetweenSections),
+                const SizedBox(height: CustomSizes.spaceBetweenSections),
 
-              //* Divider
-              FormDivider(dividerText: Texts.orSignUpWith, dark: dark),
+                //* Divider
+                FormDivider(dividerText: Texts.orSignUpWith, dark: dark),
 
-              const SizedBox(height: CustomSizes.spaceBetweenSections),
+                const SizedBox(height: CustomSizes.spaceBetweenSections),
 
-              //* Footer
-              const SocialButtons(),
-            ],
+                //* Footer
+                const SocialButtons(),
+              ],
+            ),
           ),
-        ),
-      )
-    );
+        ));
   }
 }

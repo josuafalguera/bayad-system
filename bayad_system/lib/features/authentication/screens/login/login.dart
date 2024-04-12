@@ -24,12 +24,12 @@ class LoginScreen extends StatelessWidget {
               //* Logo, Title, and Subtitle
               LoginHeader(dark: dark),
 
-              //* Form 
+              //* Form
               const LoginForm(),
 
               //* Divider
               FormDivider(dividerText: Texts.orSignInWith, dark: dark),
-              
+
               const SizedBox(height: CustomSizes.spaceBetweenSections),
 
               //* Footer
@@ -41,4 +41,3 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
-

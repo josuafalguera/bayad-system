@@ -6,8 +6,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 class NavigationMenu extends StatelessWidget {
-  const NavigationMenu
-({super.key});
+  const NavigationMenu({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,20 +18,29 @@ class NavigationMenu extends StatelessWidget {
         () => Container(
           decoration: BoxDecoration(
             border: Border(
-              top: BorderSide(color: darkMode ? Colors.white.withOpacity(0.2) : Colors.black.withOpacity(0.2), width: 0.5),
+              top: BorderSide(
+                  color: darkMode
+                      ? Colors.white.withOpacity(0.2)
+                      : Colors.black.withOpacity(0.2),
+                  width: 0.5),
             ),
           ),
           child: NavigationBar(
             height: 80,
             elevation: 0,
             selectedIndex: controller.selectedIndex.value,
-            onDestinationSelected: (index) => controller.selectedIndex.value = index,
+            onDestinationSelected: (index) =>
+                controller.selectedIndex.value = index,
             backgroundColor: darkMode ? CustomColors.black : CustomColors.white,
-            indicatorColor: darkMode ? CustomColors.white.withOpacity(0.2) : CustomColors.black.withOpacity(0.2),
+            indicatorColor: darkMode
+                ? CustomColors.white.withOpacity(0.2)
+                : CustomColors.black.withOpacity(0.2),
             destinations: const [
               NavigationDestination(icon: Icon(Iconsax.home), label: 'Home'),
-              NavigationDestination(icon: Icon(Iconsax.box), label: 'Inventory'),
-              NavigationDestination(icon: Icon(Iconsax.menu_board), label: 'Products'),
+              NavigationDestination(
+                  icon: Icon(Iconsax.box), label: 'Inventory'),
+              NavigationDestination(
+                  icon: Icon(Iconsax.menu_board), label: 'Products'),
               NavigationDestination(icon: Icon(Iconsax.shop), label: 'Store'),
             ],
           ),
@@ -43,7 +51,7 @@ class NavigationMenu extends StatelessWidget {
   }
 }
 
-class NavigationController extends GetxController{
+class NavigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
 
   final screens = [

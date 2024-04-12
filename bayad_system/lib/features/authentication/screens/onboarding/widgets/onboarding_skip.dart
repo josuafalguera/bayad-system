@@ -20,4 +20,3 @@ class OnBoardingSkip extends StatelessWidget {
     );
   }
 }
-

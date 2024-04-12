@@ -15,14 +15,16 @@ class LoginHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children:[
+      children: [
         Image(
           height: 150,
           image: AssetImage(dark ? Images.appLogo : Images.appLogo),
         ),
-        Text("${Texts.loginTitle}, ${Texts.loginTitleSpan}!", style: Theme.of(context).textTheme.headlineMedium),
+        Text("${Texts.loginTitle}, ${Texts.loginTitleSpan}!",
+            style: Theme.of(context).textTheme.headlineMedium),
         const SizedBox(height: CustomSizes.sm),
-        Text(Texts.loginSubtitle, style: Theme.of(context).textTheme.bodyMedium),
+        Text(Texts.loginSubtitle,
+            style: Theme.of(context).textTheme.bodyMedium),
       ],
     );
   }

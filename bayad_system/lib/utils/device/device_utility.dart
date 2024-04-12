@@ -5,9 +5,8 @@ import 'dart:io';
 
 import 'package:url_launcher/url_launcher_string.dart';
 
-
 class CustomDeviceUtils {
-  static void hideKeyboard(BuildContext context){
+  static void hideKeyboard(BuildContext context) {
     FocusScope.of(context).requestFocus(FocusNode());
   }
 
@@ -18,44 +17,45 @@ class CustomDeviceUtils {
   }
 
   static bool isLandscapeOrientation(BuildContext context) {
-    final viewInsets =  View.of(context).viewInsets;
+    final viewInsets = View.of(context).viewInsets;
     return viewInsets.bottom == 0.0;
   }
 
   static bool isPortraitOrientation(BuildContext context) {
-    final viewInsets =  View.of(context).viewInsets;
+    final viewInsets = View.of(context).viewInsets;
     return viewInsets.bottom != 0;
   }
 
-  static void setFullScreen(bool enable){
-    SystemChrome.setEnabledSystemUIMode(enable ? SystemUiMode.immersiveSticky : SystemUiMode.edgeToEdge);
+  static void setFullScreen(bool enable) {
+    SystemChrome.setEnabledSystemUIMode(
+        enable ? SystemUiMode.immersiveSticky : SystemUiMode.edgeToEdge);
   }
 
-  static double getScreenHeight(){
+  static double getScreenHeight() {
     return MediaQuery.of(Get.context!).size.height;
   }
 
-  static double getScreenWidth(BuildContext context){
+  static double getScreenWidth(BuildContext context) {
     return MediaQuery.of(context).size.width;
   }
 
-  static double getPixelRatio(){
+  static double getPixelRatio() {
     return MediaQuery.of(Get.context!).devicePixelRatio;
   }
 
-  static double getStatusBarHeight(){
+  static double getStatusBarHeight() {
     return MediaQuery.of(Get.context!).padding.top;
   }
 
-  static double getBottomNavigationHeight(){
+  static double getBottomNavigationHeight() {
     return kBottomNavigationBarHeight;
   }
 
-  static double getAppBarHeight(){
+  static double getAppBarHeight() {
     return kToolbarHeight;
   }
 
-  static double getKeyboardHeight(BuildContext context){
+  static double getKeyboardHeight(BuildContext context) {
     final viewInsets = MediaQuery.of(context).viewInsets;
     return viewInsets.bottom;
   }
@@ -70,25 +70,26 @@ class CustomDeviceUtils {
     return platform == TargetPlatform.android || platform == TargetPlatform.iOS;
   }
 
-
-  static void vibrate(Duration duration){
+  static void vibrate(Duration duration) {
     HapticFeedback.vibrate();
     Future.delayed(duration, () => HapticFeedback.vibrate());
   }
 
-  static Future<void> setPrefferedOrientations(List<DeviceOrientation> orientations) async {
+  static Future<void> setPrefferedOrientations(
+      List<DeviceOrientation> orientations) async {
     await SystemChrome.setPreferredOrientations(orientations);
   }
 
-  static void hideStatusBar(){
+  static void hideStatusBar() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
   }
 
-  static void showStatusBar(){
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
+  static void showStatusBar() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: SystemUiOverlay.values);
   }
 
-  static Future<bool> hasInternetConnection() async{
+  static Future<bool> hasInternetConnection() async {
     try {
       final result = await InternetAddress.lookup('example.com');
       return result.isNotEmpty && result[0].rawAddress.isNotEmpty;
@@ -97,11 +98,11 @@ class CustomDeviceUtils {
     }
   }
 
-  static bool isIOS(){
+  static bool isIOS() {
     return Platform.isIOS;
   }
 
-  static bool isAndroid(){
+  static bool isAndroid() {
     return Platform.isAndroid;
   }
 

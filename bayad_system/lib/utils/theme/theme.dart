@@ -8,7 +8,7 @@ import 'package:bayad_system/utils/theme/custom_themes/text_theme.dart';
 import 'package:bayad_system/utils/theme/custom_themes/chip_theme.dart';
 import 'package:flutter/material.dart';
 
-class AppTheme{
+class AppTheme {
   AppTheme._();
 
   static ThemeData lightTheme = ThemeData(

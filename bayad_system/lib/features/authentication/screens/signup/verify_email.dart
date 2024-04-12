@@ -10,15 +10,16 @@ import 'package:get/get.dart';
 
 class VerifyEmailScreen extends StatelessWidget {
   const VerifyEmailScreen({super.key});
- 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false ,
+        automaticallyImplyLeading: false,
         actions: [
           IconButton(
-            onPressed: () => Get.offAll(()=> const LoginScreen()), icon: const Icon(CupertinoIcons.clear)),
+              onPressed: () => Get.offAll(() => const LoginScreen()),
+              icon: const Icon(CupertinoIcons.clear)),
         ],
       ),
       body: SingleChildScrollView(
@@ -28,32 +29,42 @@ class VerifyEmailScreen extends StatelessWidget {
           child: Column(
             children: [
               //? Image
-              Image(image: const AssetImage(Images.verifyEmail), width: HelperFunctions.screenWidth() * 0.6),
+              Image(
+                  image: const AssetImage(Images.verifyEmail),
+                  width: HelperFunctions.screenWidth() * 0.6),
               const SizedBox(height: CustomSizes.spaceBetweenSections),
 
               //? Title & Subtitle
-              Text(Texts.confirmEmail, style: Theme.of(context).textTheme.headlineMedium, textAlign: TextAlign.center),
+              Text(Texts.confirmEmail,
+                  style: Theme.of(context).textTheme.headlineMedium,
+                  textAlign: TextAlign.center),
               const SizedBox(height: CustomSizes.spaceBetweenItems),
-              Text('sample.gmail.com', style: Theme.of(context).textTheme.labelLarge, textAlign: TextAlign.center),
+              Text('sample.gmail.com',
+                  style: Theme.of(context).textTheme.labelLarge,
+                  textAlign: TextAlign.center),
               const SizedBox(height: CustomSizes.spaceBetweenItems),
-              Text(Texts.confirmEmailSubtitle, style: Theme.of(context).textTheme.labelMedium, textAlign: TextAlign.center),
+              Text(Texts.confirmEmailSubtitle,
+                  style: Theme.of(context).textTheme.labelMedium,
+                  textAlign: TextAlign.center),
               const SizedBox(height: CustomSizes.spaceBetweenSections),
 
               //? Buttons
               SizedBox(
-                width: double.infinity, 
-                child: ElevatedButton(
-                  onPressed: () => Get.to(()=> const SuccessScreen(
-                                          image: Images.verifySucces, 
-                                          title: Texts.yourAccountCreatedTitle, 
-                                          subtitle: Texts.yourAccountCreatedSubtitle, 
-                                        ),
-                                      ), 
-                  child: const Text(Texts.econtinue)
-                )
-              ),
+                  width: double.infinity,
+                  child: ElevatedButton(
+                      onPressed: () => Get.to(
+                            () => const SuccessScreen(
+                              image: Images.verifySucces,
+                              title: Texts.yourAccountCreatedTitle,
+                              subtitle: Texts.yourAccountCreatedSubtitle,
+                            ),
+                          ),
+                      child: const Text(Texts.econtinue))),
               const SizedBox(height: CustomSizes.spaceBetweenItems),
-              TextButton(onPressed: (){}, child: Text(Texts.resendEmail, style: Theme.of(context).textTheme.labelMedium)),
+              TextButton(
+                  onPressed: () {},
+                  child: Text(Texts.resendEmail,
+                      style: Theme.of(context).textTheme.labelMedium)),
             ],
           ),
         ),

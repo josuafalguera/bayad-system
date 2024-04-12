@@ -4,7 +4,10 @@ import '../../../../../utils/constants/sizes.dart';
 
 class OnBoardingPage extends StatelessWidget {
   const OnBoardingPage({
-    super.key, required this.image, required this.title, required this.subTitle,
+    super.key,
+    required this.image,
+    required this.title,
+    required this.subTitle,
   });
 
   final String image, title, subTitle;

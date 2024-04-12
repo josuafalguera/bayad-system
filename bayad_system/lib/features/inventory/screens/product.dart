@@ -28,19 +28,23 @@ class _ProductScreenState extends State<ProductScreen> {
   void initState() {
     super.initState();
     // Initialize your products list here (if you're fetching it from an API, this might be the place to do so)
-    products = List.of(Data().products); // Make sure this is populated with your initial data set
+    products = List.of(Data()
+        .products); // Make sure this is populated with your initial data set
     _filteredProducts = List.of(products); // Start with all products visible
-    
+
     _searchController.addListener(_filterProducts);
   }
 
   void _filterProducts() {
-    setState(() { // This ensures the widget rebuilds with the new filtered list
+    setState(() {
+      // This ensures the widget rebuilds with the new filtered list
       final query = _searchController.text.toLowerCase();
       if (query.isEmpty) {
         _filteredProducts = List.of(products);
       } else {
-        _filteredProducts = products.where((product) => product.name.toLowerCase().contains(query)).toList();
+        _filteredProducts = products
+            .where((product) => product.name.toLowerCase().contains(query))
+            .toList();
       }
     });
   }
@@ -67,9 +71,13 @@ class _ProductScreenState extends State<ProductScreen> {
         ],
       ),
       child: Container(
-        margin: const EdgeInsets.only(bottom: CustomSizes.sm, left: CustomSizes.defaultSpace, right: CustomSizes.defaultSpace),
+        margin: const EdgeInsets.only(
+            bottom: CustomSizes.sm,
+            left: CustomSizes.defaultSpace,
+            right: CustomSizes.defaultSpace),
         decoration: BoxDecoration(
-          color: dark ? CustomColors.darkContainer : CustomColors.containerLight,
+          color:
+              dark ? CustomColors.darkContainer : CustomColors.containerLight,
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: ListTile(
@@ -81,8 +89,10 @@ class _ProductScreenState extends State<ProductScreen> {
   }
 
   void _showEditDialog(BuildContext context, Product product) {
-    final TextEditingController nameController = TextEditingController(text: product.name);
-    final TextEditingController priceController = TextEditingController(text: product.price.toString());
+    final TextEditingController nameController =
+        TextEditingController(text: product.name);
+    final TextEditingController priceController =
+        TextEditingController(text: product.price.toString());
 
     showDialog(
       context: context,
@@ -94,13 +104,16 @@ class _ProductScreenState extends State<ProductScreen> {
               children: [
                 TextFormField(
                   controller: nameController,
-                  decoration: const InputDecoration(labelText: 'Enter new name'),
+                  decoration:
+                      const InputDecoration(labelText: 'Enter new name'),
                 ),
                 const SizedBox(height: CustomSizes.spaceBetweenInputFields),
                 TextFormField(
                   controller: priceController,
-                  decoration: const InputDecoration(labelText: 'Enter new price'),
-                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                  decoration:
+                      const InputDecoration(labelText: 'Enter new price'),
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
                 ),
               ],
             ),
@@ -116,7 +129,10 @@ class _ProductScreenState extends State<ProductScreen> {
                 final double? newPrice = double.tryParse(priceController.text);
                 if (newName.isNotEmpty && newPrice != null) {
                   setState(() {
-                    products[products.indexWhere((p) => p == product)] = product.copyWith(name: newName, price: newPrice);
+                    products[products.indexWhere((p) => p == product)] =
+                        product.copyWith(name: newName, price: newPrice);
+                    _filteredProducts =
+                        List.of(products); // Start with all products visible
                   });
                 }
                 Navigator.of(context).pop();
@@ -145,6 +161,8 @@ class _ProductScreenState extends State<ProductScreen> {
               onPressed: () {
                 setState(() {
                   products.removeWhere((p) => p == product);
+                  _filteredProducts =
+                      List.of(products); // Start with all products visible
                 });
                 Navigator.of(context).pop();
               },
@@ -176,7 +194,8 @@ class _ProductScreenState extends State<ProductScreen> {
                 TextFormField(
                   controller: priceController,
                   decoration: const InputDecoration(labelText: 'Product Price'),
-                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
                 ),
               ],
             ),
@@ -193,6 +212,8 @@ class _ProductScreenState extends State<ProductScreen> {
                 if (newName.isNotEmpty && newPrice != null) {
                   setState(() {
                     products.add(Product(name: newName, price: newPrice));
+                    _filteredProducts =
+                        List.of(products); // Start with all products visible
                   });
                 }
                 Navigator.of(context).pop();
@@ -226,7 +247,8 @@ class _ProductScreenState extends State<ProductScreen> {
               decoration: InputDecoration(
                 prefixIcon: const Icon(Icons.search),
                 labelText: 'Search',
-                contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 15),
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 0, horizontal: 15),
                 suffixIcon: IconButton(
                   icon: const Icon(Icons.clear),
                   onPressed: () => _searchController.clear(),
@@ -238,6 +260,32 @@ class _ProductScreenState extends State<ProductScreen> {
             padding: EdgeInsets.symmetric(horizontal: CustomSizes.defaultSpace),
             child: Divider(),
           ),
+          const SizedBox(height: CustomSizes.sm),
+          Row(children: [
+            Padding(
+              padding: const EdgeInsets.only(left: CustomSizes.defaultSpace),
+              child: Text(
+                'Product Name (${_filteredProducts.length})',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge!
+                    .copyWith(fontWeight: FontWeight.bold),
+              ),
+            ),
+            const Spacer(), // This will push the following widget to the right
+            Padding(
+              padding:
+                  const EdgeInsets.only(right: CustomSizes.defaultSpace + 30.0),
+              child: Text(
+                'Price',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge!
+                    .copyWith(fontWeight: FontWeight.bold),
+              ),
+            ),
+          ]),
+          const SizedBox(height: CustomSizes.sm),
           Expanded(
             child: ListView.builder(
               itemCount: _filteredProducts.length,

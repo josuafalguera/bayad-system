@@ -14,57 +14,64 @@ class LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Form(child: Padding(
-      padding: const EdgeInsets.symmetric(vertical: CustomSizes.spaceBetweenSections),
+    return Form(
+        child: Padding(
+      padding: const EdgeInsets.symmetric(
+          vertical: CustomSizes.spaceBetweenSections),
       child: Column(
-          children: [
-            //* Email
-            TextFormField(
+        children: [
+          //* Email
+          TextFormField(
               decoration: const InputDecoration(
-                prefixIcon: Icon(Iconsax.direct_right), 
-                labelText: Texts.email
-              )
-            ),
-            const SizedBox(height: CustomSizes.spaceBetweenInputFields),
-      
-            //* Password
-            TextFormField(
+                  prefixIcon: Icon(Iconsax.direct_right),
+                  labelText: Texts.email)),
+          const SizedBox(height: CustomSizes.spaceBetweenInputFields),
+
+          //* Password
+          TextFormField(
               decoration: const InputDecoration(
-                prefixIcon: Icon(Iconsax.password_check),
-                labelText: Texts.password, 
-                suffixIcon: Icon(Iconsax.eye_slash),
-              )
-            ),
-            const SizedBox(height: CustomSizes.spaceBetweenInputFields/2),
-      
-            //* Remember me and Forget password
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                //* Remember me
-                Row(
-                  children: [
-                    Checkbox(value: true, onChanged: (value) {}),
-                    const Text(Texts.rememberMe),
-                  ],
-                ),
-      
-                //* Forget password
-                  TextButton(onPressed: (){}, child: const Text(Texts.forgetPassword)),
-              ],
-            ),
-            const SizedBox(height: CustomSizes.spaceBetweenSections),
-      
-            //* Sign in button
-            SizedBox(width: double.infinity, child: ElevatedButton(onPressed: () => Get.to(() => const NavigationMenu()), child: const Text(Texts.signIn))),
-            const SizedBox(height: CustomSizes.spaceBetweenItems),
-      
-            //* Create account button
-            SizedBox(width: double.infinity, child: OutlinedButton(onPressed: () => Get.to(() => const SignupScreen()), child: const Text(Texts.createAccount))),
-            const SizedBox(height: CustomSizes.spaceBetweenItems),
-          ],
-        ),
-      )
-    );
+            prefixIcon: Icon(Iconsax.password_check),
+            labelText: Texts.password,
+            suffixIcon: Icon(Iconsax.eye_slash),
+          )),
+          const SizedBox(height: CustomSizes.spaceBetweenInputFields / 2),
+
+          //* Remember me and Forget password
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              //* Remember me
+              Row(
+                children: [
+                  Checkbox(value: true, onChanged: (value) {}),
+                  const Text(Texts.rememberMe),
+                ],
+              ),
+
+              //* Forget password
+              TextButton(
+                  onPressed: () {}, child: const Text(Texts.forgetPassword)),
+            ],
+          ),
+          const SizedBox(height: CustomSizes.spaceBetweenSections),
+
+          //* Sign in button
+          SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                  onPressed: () => Get.to(() => const NavigationMenu()),
+                  child: const Text(Texts.signIn))),
+          const SizedBox(height: CustomSizes.spaceBetweenItems),
+
+          //* Create account button
+          SizedBox(
+              width: double.infinity,
+              child: OutlinedButton(
+                  onPressed: () => Get.to(() => const SignupScreen()),
+                  child: const Text(Texts.createAccount))),
+          const SizedBox(height: CustomSizes.spaceBetweenItems),
+        ],
+      ),
+    ));
   }
 }
