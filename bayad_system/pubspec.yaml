@@ -1,11 +1,11 @@
 name: bayad_system
 description: "All-in-One Point-of-Sales System for Micro and Small Enterprises in the Philippines"
 
-publish_to: 'none' 
+publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.2.5 <4.0.0'
+  sdk: ">=3.2.5 <4.0.0"
 
 #?------------- Packages ----------------#
 dependencies:
@@ -29,8 +29,8 @@ dependencies:
   get: ^4.6.5
   get_storage: ^2.1.1
 
-  #* Product Specific
-
+  #* Firebase
+  firebase_core: ^2.29.0
 
 #?------------- Packages end ----------------#
 
@@ -50,7 +50,7 @@ flutter:
     - assets/icons/
     - assets/fonts/
     - assets/gifs/
-  
+
   #?----------- Local Fonts ---------------#
   fonts:
     - family: Poppins
@@ -70,30 +70,3 @@ flutter:
           weight: 600
         - asset: assets/fonts/Poppins-Bold.ttf
           weight: 800
-  
-
-  
-  
-
-  
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "966423884670",
+    "project_id": "bayad-system-d4c45",
+    "storage_bucket": "bayad-system-d4c45.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:966423884670:android:fc814560a804538c05f92f",
+        "android_client_info": {
+          "package_name": "com.example.bayad_system"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYHrqkaKacUIpt3hl8RFbak0tkII0Mw5c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
