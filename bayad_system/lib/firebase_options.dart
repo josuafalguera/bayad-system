@@ -70,6 +70,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '966423884670',
     projectId: 'bayad-system-d4c45',
     storageBucket: 'bayad-system-d4c45.appspot.com',
+    androidClientId: '966423884670-oib2206sf5jr60dd6jva71pjaraqfasl.apps.googleusercontent.com',
+    iosClientId: '966423884670-ossk10khnilmmmh4dos3cibco1ku7t54.apps.googleusercontent.com',
     iosBundleId: 'com.example.bayadSystem',
   );
+
 }
