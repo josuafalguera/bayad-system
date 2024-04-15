@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:bayad_system/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:bayad_system/utils/constants/colors.dart';
 import 'package:bayad_system/utils/constants/sizes.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({super.key});
@@ -12,7 +15,7 @@ class ProductScreen extends StatefulWidget {
 }
 
 class _ProductScreenState extends State<ProductScreen> {
-  List<Product> products = List.of(Data().products);
+  List<Product> products = [];
 
   List<Product> _filteredProducts = [];
   final TextEditingController _searchController = TextEditingController();
@@ -28,11 +31,16 @@ class _ProductScreenState extends State<ProductScreen> {
   void initState() {
     super.initState();
     // Initialize your products list here (if you're fetching it from an API, this might be the place to do so)
-    products = List.of(Data()
-        .products); // Make sure this is populated with your initial data set
-    _filteredProducts = List.of(products); // Start with all products visible
-
+    _initializeProducts();
     _searchController.addListener(_filterProducts);
+  }
+
+  void _initializeProducts() async {
+    List<Product> updatedProduct = await _getAllProductsFromFirestore();
+    setState(() {
+      _filteredProducts =
+          List.of(updatedProduct); // Start with all products visible
+    });
   }
 
   void _filterProducts() {
@@ -129,10 +137,14 @@ class _ProductScreenState extends State<ProductScreen> {
                 final double? newPrice = double.tryParse(priceController.text);
                 if (newName.isNotEmpty && newPrice != null) {
                   setState(() {
-                    products[products.indexWhere((p) => p == product)] =
-                        product.copyWith(name: newName, price: newPrice);
-                    _filteredProducts =
-                        List.of(products); // Start with all products visible
+                    // products[products.indexWhere((p) => p == product)] =
+                    //     product;
+                    // _filteredProducts =
+                    //     List.of(products); // Start with all products visible
+
+                    _editProductInFirestore(Product(
+                        id: product.id, name: newName, price: newPrice));
+                    _initializeProducts();
                   });
                 }
                 Navigator.of(context).pop();
@@ -160,9 +172,11 @@ class _ProductScreenState extends State<ProductScreen> {
             TextButton(
               onPressed: () {
                 setState(() {
-                  products.removeWhere((p) => p == product);
-                  _filteredProducts =
-                      List.of(products); // Start with all products visible
+                  // products.removeWhere((p) => p == product);
+                  // _filteredProducts =
+                  //     List.of(products); // Start with all products visible
+                  _deleteProductFromFirestore(product.id);
+                  _initializeProducts();
                 });
                 Navigator.of(context).pop();
               },
@@ -207,13 +221,23 @@ class _ProductScreenState extends State<ProductScreen> {
             ),
             TextButton(
               onPressed: () {
+                final Random random = Random();
+                final characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+                String randomString = '';
+
+                for (var i = 0; i < 10; i++) {
+                  randomString += characters[random.nextInt(characters.length)];
+                }
                 final String newName = nameController.text;
                 final double? newPrice = double.tryParse(priceController.text);
                 if (newName.isNotEmpty && newPrice != null) {
                   setState(() {
-                    products.add(Product(name: newName, price: newPrice));
-                    _filteredProducts =
-                        List.of(products); // Start with all products visible
+                    // products.add(Product(name: newName, price: newPrice));
+                    // _filteredProducts =
+                    //     List.of(products); // Start with all products visible
+                    _addProductToFirestore(Product(
+                        id: randomString, name: newName, price: newPrice));
+                    _initializeProducts();
                   });
                 }
                 Navigator.of(context).pop();
@@ -265,7 +289,7 @@ class _ProductScreenState extends State<ProductScreen> {
             Padding(
               padding: const EdgeInsets.only(left: CustomSizes.defaultSpace),
               child: Text(
-                'Product Name (${_filteredProducts.length})',
+                'Product Name (${products.length})',
                 style: Theme.of(context)
                     .textTheme
                     .titleLarge!
@@ -307,35 +331,78 @@ class _ProductScreenState extends State<ProductScreen> {
 }
 
 class Product {
-  Product({required this.name, required this.price});
+  Product({required this.id, required this.name, required this.price});
 
+  final String id;
   final String name;
   final double price;
+}
 
-  Product copyWith({String? name, double? price}) {
-    return Product(
-      name: name ?? this.name,
-      price: price ?? this.price,
-    );
+CollectionReference productCollection =
+    FirebaseFirestore.instance.collection('products');
+
+Future<void> _addProductToFirestore(Product product) async {
+  productCollection.add({
+    'id': product.id,
+    'name': product.name,
+    'price': product.price,
+  }).then((value) {
+    // Document added successfully
+    print('Sucessfully Added');
+  }).catchError((error) {
+    // Error occurred while adding document
+    print('Failed to add product: $error');
+  });
+}
+
+void _editProductInFirestore(Product product) async {
+  try {
+    QuerySnapshot querySnapshot =
+        await productCollection.where('id', isEqualTo: product.id).get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      await productCollection.doc(querySnapshot.docs.first.id).update({
+        'name': product.name,
+        'price': product.price,
+      });
+      print('Product updated successfully');
+    } else {
+      print('No product found with the given id');
+    }
+  } catch (error) {
+    print('Failed to update product: $error');
   }
 }
 
-class Data {
-  final List<Product> products = [
-    Product(name: 'Product 1', price: 100),
-    Product(name: 'Product 2', price: 200),
-    Product(name: 'Product 3', price: 300),
-    Product(name: 'Product 4', price: 400),
-    Product(name: 'Product 5', price: 500),
-    Product(name: 'Product 6', price: 600),
-    Product(name: 'Product 7', price: 700),
-    Product(name: 'Product 8', price: 800),
-    Product(name: 'Product 9', price: 900),
-    Product(name: 'Product 10', price: 1000),
-    Product(name: 'Product 11', price: 1100),
-    Product(name: 'Product 12', price: 1200),
-    Product(name: 'Product 13', price: 1300),
-    Product(name: 'Product 14', price: 1400),
-    Product(name: 'Product 15', price: 1500),
-  ];
+void _deleteProductFromFirestore(String productId) async {
+  try {
+    QuerySnapshot querySnapshot =
+        await productCollection.where('id', isEqualTo: productId).get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      await productCollection.doc(querySnapshot.docs.first.id).delete();
+      print('Product deleted successfully');
+    } else {
+      print('No product found with the given id');
+    }
+  } catch (error) {
+    print('Failed to delete product: $error');
+  }
+}
+
+Future<List<Product>> _getAllProductsFromFirestore() async {
+  List<Product> products = [];
+  try {
+    QuerySnapshot querySnapshot = await productCollection.get();
+    products = querySnapshot.docs.map((DocumentSnapshot document) {
+      return Product(
+          id: document['id'],
+          name: document['name'],
+          price: (document['price'] as num).toDouble());
+    }).toList();
+  } catch (error) {
+    // Use a logging framework here instead of print
+    print('Failed to get products: $error');
+  }
+  return products;
 }
