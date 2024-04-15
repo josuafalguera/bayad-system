@@ -1,4 +1,11 @@
 class Validator {
+  static String? validateEmptyText(String? fieldname, String? value) {
+    if (value == null || value.isEmpty) {
+      return '$fieldname is required';
+    }
+    return null;
+  }
+
   static String? validateEmail(String? email) {
     if (email == null || email.isEmpty) {
       return 'Email is required';
@@ -36,6 +43,20 @@ class Validator {
       return 'Password must contain at least one special character';
     }
 
+    return null;
+  }
+
+  static String? validatePhoneNumber(String? phoneNumber) {
+    if (phoneNumber == null || phoneNumber.isEmpty) {
+      return 'Phone number is required';
+    }
+
+    // Updated RegExp to match Philippine phone numbers
+    // This will match numbers with or without the +63 country code
+    final phoneRegExp = RegExp(r'^(?:\+63)?[0-9]{11}$');
+    if (!phoneRegExp.hasMatch(phoneNumber)) {
+      return 'Enter a valid phone number';
+    }
     return null;
   }
 }

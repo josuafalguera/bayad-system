@@ -8,4 +8,5 @@ class Images {
   static const String tailored = 'assets/gifs/tailored.gif';
   static const String verifyEmail = 'assets/images/verify-email.png';
   static const String verifySucces = 'assets/images/verify-success.png';
+  static const String docerAnimation = 'assets/images/docerAnimation.json';
 }

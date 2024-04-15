@@ -1,3 +1,4 @@
+import 'package:bayad_system/bindings/general_bindings.dart';
 import 'package:bayad_system/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:bayad_system/utils/theme/theme.dart';
@@ -13,7 +14,7 @@ class App extends StatelessWidget {
         themeMode: ThemeMode.system,
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
-        // home: const OnBoardingScreen(),
+        initialBinding: GeneralBindings(),
         home: const Scaffold(
             backgroundColor: CustomColors.primaryColor,
             body: Center(
