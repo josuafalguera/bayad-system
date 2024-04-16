@@ -1,9 +1,10 @@
 import 'dart:math';
-
+import 'package:flutter/foundation.dart';
 import 'package:bayad_system/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:bayad_system/utils/constants/colors.dart';
 import 'package:bayad_system/utils/constants/sizes.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -16,13 +17,10 @@ class ProductScreen extends StatefulWidget {
 
 class _ProductScreenState extends State<ProductScreen> {
   List<Product> products = [];
-
-  List<Product> _filteredProducts = [];
   final TextEditingController _searchController = TextEditingController();
 
   @override
   void dispose() {
-    _searchController.removeListener(_filterProducts);
     _searchController.dispose();
     super.dispose();
   }
@@ -32,28 +30,12 @@ class _ProductScreenState extends State<ProductScreen> {
     super.initState();
     // Initialize your products list here (if you're fetching it from an API, this might be the place to do so)
     _initializeProducts();
-    _searchController.addListener(_filterProducts);
   }
 
   void _initializeProducts() async {
     List<Product> updatedProduct = await _getAllProductsFromFirestore();
     setState(() {
-      _filteredProducts =
-          List.of(updatedProduct); // Start with all products visible
-    });
-  }
-
-  void _filterProducts() {
-    setState(() {
-      // This ensures the widget rebuilds with the new filtered list
-      final query = _searchController.text.toLowerCase();
-      if (query.isEmpty) {
-        _filteredProducts = List.of(products);
-      } else {
-        _filteredProducts = products
-            .where((product) => product.name.toLowerCase().contains(query))
-            .toList();
-      }
+      products = List.of(updatedProduct); // Start with all products visible
     });
   }
 
@@ -122,6 +104,10 @@ class _ProductScreenState extends State<ProductScreen> {
                       const InputDecoration(labelText: 'Enter new price'),
                   keyboardType:
                       const TextInputType.numberWithOptions(decimal: true),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(
+                        RegExp(r'^\d*\.?\d{0,2}')),
+                  ],
                 ),
               ],
             ),
@@ -136,16 +122,11 @@ class _ProductScreenState extends State<ProductScreen> {
                 final String newName = nameController.text;
                 final double? newPrice = double.tryParse(priceController.text);
                 if (newName.isNotEmpty && newPrice != null) {
-                  setState(() {
-                    // products[products.indexWhere((p) => p == product)] =
-                    //     product;
-                    // _filteredProducts =
-                    //     List.of(products); // Start with all products visible
-
-                    _editProductInFirestore(Product(
-                        id: product.id, name: newName, price: newPrice));
-                    _initializeProducts();
-                  });
+                  (() async => {
+                        await _editProductInFirestore(Product(
+                            id: product.id, name: newName, price: newPrice)),
+                        _initializeProducts(),
+                      })();
                 }
                 Navigator.of(context).pop();
               },
@@ -171,13 +152,10 @@ class _ProductScreenState extends State<ProductScreen> {
             ),
             TextButton(
               onPressed: () {
-                setState(() {
-                  // products.removeWhere((p) => p == product);
-                  // _filteredProducts =
-                  //     List.of(products); // Start with all products visible
-                  _deleteProductFromFirestore(product.id);
-                  _initializeProducts();
-                });
+                (() async => {
+                      await _deleteProductFromFirestore(product.id),
+                      _initializeProducts(),
+                    })();
                 Navigator.of(context).pop();
               },
               child: const Text('Delete', style: TextStyle(color: Colors.red)),
@@ -210,6 +188,10 @@ class _ProductScreenState extends State<ProductScreen> {
                   decoration: const InputDecoration(labelText: 'Product Price'),
                   keyboardType:
                       const TextInputType.numberWithOptions(decimal: true),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(
+                        RegExp(r'^\d*\.?\d{0,2}')),
+                  ],
                 ),
               ],
             ),
@@ -222,7 +204,7 @@ class _ProductScreenState extends State<ProductScreen> {
             TextButton(
               onPressed: () {
                 final Random random = Random();
-                final characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+                const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
                 String randomString = '';
 
                 for (var i = 0; i < 10; i++) {
@@ -232,9 +214,6 @@ class _ProductScreenState extends State<ProductScreen> {
                 final double? newPrice = double.tryParse(priceController.text);
                 if (newName.isNotEmpty && newPrice != null) {
                   setState(() {
-                    // products.add(Product(name: newName, price: newPrice));
-                    // _filteredProducts =
-                    //     List.of(products); // Start with all products visible
                     _addProductToFirestore(Product(
                         id: randomString, name: newName, price: newPrice));
                     _initializeProducts();
@@ -312,9 +291,9 @@ class _ProductScreenState extends State<ProductScreen> {
           const SizedBox(height: CustomSizes.sm),
           Expanded(
             child: ListView.builder(
-              itemCount: _filteredProducts.length,
+              itemCount: products.length,
               itemBuilder: (context, index) {
-                return _productListItem(_filteredProducts[index]);
+                return _productListItem(products[index]);
               },
             ),
           ),
@@ -334,8 +313,8 @@ class Product {
   Product({required this.id, required this.name, required this.price});
 
   final String id;
-  final String name;
-  final double price;
+  String name;
+  double price;
 }
 
 CollectionReference productCollection =
@@ -348,14 +327,19 @@ Future<void> _addProductToFirestore(Product product) async {
     'price': product.price,
   }).then((value) {
     // Document added successfully
-    print('Sucessfully Added');
+    if (kDebugMode) {
+      print('Sucessfully Added');
+    }
   }).catchError((error) {
     // Error occurred while adding document
-    print('Failed to add product: $error');
+    if (kDebugMode) {
+      if (kDebugMode) {}
+      print('Failed to add product: $error');
+    }
   });
 }
 
-void _editProductInFirestore(Product product) async {
+Future<void> _editProductInFirestore(Product product) async {
   try {
     QuerySnapshot querySnapshot =
         await productCollection.where('id', isEqualTo: product.id).get();
@@ -365,28 +349,42 @@ void _editProductInFirestore(Product product) async {
         'name': product.name,
         'price': product.price,
       });
-      print('Product updated successfully');
+      if (kDebugMode) {
+        if (kDebugMode) {}
+        print('Product updated successfully');
+      }
     } else {
-      print('No product found with the given id');
+      if (kDebugMode) {
+        if (kDebugMode) {}
+        print('No product found with the given id');
+      }
     }
   } catch (error) {
-    print('Failed to update product: $error');
+    if (kDebugMode) {
+      print('Failed to update product: $error');
+    }
   }
 }
 
-void _deleteProductFromFirestore(String productId) async {
+Future<void> _deleteProductFromFirestore(String productId) async {
   try {
     QuerySnapshot querySnapshot =
         await productCollection.where('id', isEqualTo: productId).get();
 
     if (querySnapshot.docs.isNotEmpty) {
       await productCollection.doc(querySnapshot.docs.first.id).delete();
-      print('Product deleted successfully');
+      if (kDebugMode) {
+        print('Product deleted successfully');
+      }
     } else {
-      print('No product found with the given id');
+      if (kDebugMode) {
+        print('No product found with the given id');
+      }
     }
   } catch (error) {
-    print('Failed to delete product: $error');
+    if (kDebugMode) {
+      print('Failed to delete product: $error');
+    }
   }
 }
 
@@ -402,7 +400,9 @@ Future<List<Product>> _getAllProductsFromFirestore() async {
     }).toList();
   } catch (error) {
     // Use a logging framework here instead of print
-    print('Failed to get products: $error');
+    if (kDebugMode) {
+      print('Failed to get products: $error');
+    }
   }
   return products;
 }
