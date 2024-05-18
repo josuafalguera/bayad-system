@@ -1,7 +1,9 @@
+import 'package:bayad_system/features/authentication/controllers/signup_controller.dart';
 import 'package:bayad_system/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:bayad_system/utils/constants/sizes.dart';
 import 'package:bayad_system/utils/constants/text_strings.dart';
+import 'package:get/get.dart';
 
 class TermsAndConditionCheckbox extends StatelessWidget {
   const TermsAndConditionCheckbox({
@@ -13,12 +15,17 @@ class TermsAndConditionCheckbox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = SignupController.instance;
     return Row(
       children: [
         SizedBox(
-            width: 24,
-            height: 24,
-            child: Checkbox(value: true, onChanged: (value) {})),
+          width: 24,
+          height: 24,
+          child: Obx(() => Checkbox(
+              value: controller.privacyPolicy.value,
+              onChanged: (value) => controller.privacyPolicy.value =
+                  !controller.privacyPolicy.value)),
+        ),
         const SizedBox(width: CustomSizes.spaceBetweenItems),
         Text.rich(
           TextSpan(
