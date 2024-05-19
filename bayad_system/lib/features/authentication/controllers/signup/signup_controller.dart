@@ -6,15 +6,15 @@ import 'package:bayad_system/features/authentication/screens/signup/verify_email
 import 'package:bayad_system/utils/popups/full_screen_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../utils/constants/image_strings.dart';
-import '../../../utils/helpers/network_manager.dart';
+import '../../../../utils/constants/image_strings.dart';
+import '../../../../utils/helpers/network_manager.dart';
 
 class SignupController extends GetxController {
   static SignupController get instance => Get.find();
 
   //* Variables
   final hidePassword = true.obs; //* Observable for hiding/showing password
-  final privacyPolicy = true.obs; //* Observable for privacy policy acceptance
+  final privacyPolicy = false.obs; //* Observable for privacy policy acceptance
   final email = TextEditingController(); //* Controller for email input
   final lastName = TextEditingController(); //* Controller for last name input
   final userName = TextEditingController(); //* Controller for username input
@@ -82,7 +82,7 @@ class SignupController extends GetxController {
               'Your account has been created successfully. Verify your email to continue.');
 
       //* Move to verify email screen
-      Get.to(() => const VerifyEmailScreen());
+      Get.to(() => VerifyEmailScreen(email: email.text.trim()));
     } catch (e) {
       //* Remove Loader
       FullScreenLoader.stopLoading();

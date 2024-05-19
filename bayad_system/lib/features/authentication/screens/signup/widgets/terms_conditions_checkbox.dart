@@ -1,4 +1,4 @@
-import 'package:bayad_system/features/authentication/controllers/signup_controller.dart';
+import 'package:bayad_system/features/authentication/controllers/signup/signup_controller.dart';
 import 'package:bayad_system/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:bayad_system/utils/constants/sizes.dart';

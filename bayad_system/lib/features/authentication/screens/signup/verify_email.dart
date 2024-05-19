@@ -1,5 +1,5 @@
-import 'package:bayad_system/common/widgets/success_screen/success_screen.dart';
-import 'package:bayad_system/features/authentication/screens/login/login.dart';
+import 'package:bayad_system/data/repositories/authentication/authentication_repository.dart';
+import 'package:bayad_system/features/authentication/controllers/signup/verify_email_controller.dart';
 import 'package:bayad_system/utils/constants/image_strings.dart';
 import 'package:bayad_system/utils/constants/sizes.dart';
 import 'package:bayad_system/utils/constants/text_strings.dart';
@@ -9,16 +9,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class VerifyEmailScreen extends StatelessWidget {
-  const VerifyEmailScreen({super.key});
+  const VerifyEmailScreen({super.key, this.email});
+
+  final String? email;
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(VerifyEmailController());
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
-              onPressed: () => Get.offAll(() => const LoginScreen()),
+              onPressed: () => AuthenticationRepository.instance.logout(),
               icon: const Icon(CupertinoIcons.clear)),
         ],
       ),
@@ -39,7 +43,7 @@ class VerifyEmailScreen extends StatelessWidget {
                   style: Theme.of(context).textTheme.headlineMedium,
                   textAlign: TextAlign.center),
               const SizedBox(height: CustomSizes.spaceBetweenItems),
-              Text('sample.gmail.com',
+              Text(email ?? '',
                   style: Theme.of(context).textTheme.labelLarge,
                   textAlign: TextAlign.center),
               const SizedBox(height: CustomSizes.spaceBetweenItems),
@@ -52,17 +56,11 @@ class VerifyEmailScreen extends StatelessWidget {
               SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                      onPressed: () => Get.to(
-                            () => const SuccessScreen(
-                              image: Images.verifySucces,
-                              title: Texts.yourAccountCreatedTitle,
-                              subtitle: Texts.yourAccountCreatedSubtitle,
-                            ),
-                          ),
+                      onPressed: () => controller.checkEmailVerifiedStatus(),
                       child: const Text(Texts.econtinue))),
               const SizedBox(height: CustomSizes.spaceBetweenItems),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () => controller.sendEmailVerificationLink(),
                   child: Text(Texts.resendEmail,
                       style: Theme.of(context).textTheme.labelMedium)),
             ],
